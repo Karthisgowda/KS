@@ -3,18 +3,27 @@ import { useState, useEffect } from "react";
 
 export default function Hero() {
   const [currentRole, setCurrentRole] = useState("Full Stack");
-  const [cycleCount, setCycleCount] = useState(0);
+  const [step, setStep] = useState(0);
   
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCycleCount(prev => prev + 1);
-      setCurrentRole(prev => {
-        if (prev === "Full Stack") return "Front End";
-        return prev === "Front End" ? "Back End" : "Front End";
-      });
-    }, 2000);
+    const timeouts = [
+      setTimeout(() => {
+        setCurrentRole("Front End");
+        setStep(1);
+      }, 2000),
+      setTimeout(() => {
+        setCurrentRole("Back End");
+        setStep(2);
+      }, 4000),
+      setTimeout(() => {
+        setCurrentRole("Full Stack");
+        setStep(3);
+      }, 6000)
+    ];
     
-    return () => clearInterval(interval);
+    return () => {
+      timeouts.forEach(timeout => clearTimeout(timeout));
+    };
   }, []);
 
   const handleScrollToSection = (sectionId: string) => {
