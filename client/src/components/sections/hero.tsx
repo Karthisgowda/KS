@@ -3,21 +3,17 @@ import { useState, useEffect } from "react";
 
 export default function Hero() {
   const [currentRole, setCurrentRole] = useState("Full Stack");
-  const [step, setStep] = useState(0);
   
   useEffect(() => {
     const timeouts = [
       setTimeout(() => {
         setCurrentRole("Front End");
-        setStep(1);
       }, 2000),
       setTimeout(() => {
         setCurrentRole("Back End");
-        setStep(2);
       }, 3000),
       setTimeout(() => {
         setCurrentRole("Full Stack");
-        setStep(3);
       }, 4000)
     ];
     
