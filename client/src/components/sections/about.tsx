@@ -28,8 +28,8 @@ export default function About() {
             <div className="flex justify-center mt-8">
               <div className="gradient-border hover-lift animate-scaleIn">
                 <div className="gradient-border-content text-center px-8 py-6">
-                  <div className="text-2xl font-bold text-gradient-primary mb-2">Ready to Collaborate</div>
-                  <div className="text-gray-300">Let's build something amazing together!</div>
+                  <div className="text-2xl font-bold text-gradient-primary mb-2">Seeking Opportunities</div>
+                  <div className="text-gray-300">Ready to contribute to your team's success!</div>
                 </div>
               </div>
             </div>
