@@ -5,9 +5,9 @@ export default function Projects() {
     {
       title: "CrowdChoice",
       subtitle: "Crowdsourced Decision-Making App",
-      description: "HTML/CSS/JS frontend with Python & PHP backend, including user login and live voting system.",
+      description: "Responsive web application with React frontend and Python & PHP backend, featuring user authentication and real-time voting system.",
       duration: "Jan 2024 – Feb 2024",
-      technologies: ["HTML/CSS", "JavaScript", "Python", "PHP"],
+      technologies: ["React", "HTML/CSS", "JavaScript", "Python", "PHP"],
       liveDemo: "https://crowdchoice-1-2.onrender.com",
       github: "https://github.com/Karthisgowda/CrowdChoice-1.git"
     },
@@ -45,7 +45,7 @@ export default function Projects() {
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-emerald-500 mx-auto rounded-full"></div>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {projects.map((project, index) => (
             <div key={index} className="gradient-border hover-lift animate-fadeInUp" style={{animationDelay: `${index * 0.2}s`}} data-testid={`project-${index}`}>
               <div className="gradient-border-content h-full">
@@ -75,7 +75,7 @@ export default function Projects() {
                   </div>
                 </div>
                 
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col xs:flex-row gap-3">
                   <a 
                     href={project.liveDemo} 
                     target="_blank" 
