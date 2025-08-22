@@ -178,6 +178,17 @@
     opacity: 1;
     transform: translateY(0);
   }
+  
+  .about-pop {
+    opacity: 0;
+    transform: translateY(60px) scale(0.9);
+    transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .about-pop.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @layer utilities {
