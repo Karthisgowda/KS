@@ -8,7 +8,7 @@ export default function Skills() {
       skills: [
         { name: "DSA", level: 87 },
         { name: "Python", level: 93 },
-        { name: "PHP", level: 75 },
+        { name: "PHP", level: 85 },
         { name: "Android Studio", level: 81 }
       ]
     },
@@ -48,7 +48,7 @@ export default function Skills() {
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillCategories.map((category, categoryIndex) => (
-            <div key={categoryIndex} className="skill-card p-6 rounded-xl border border-gray-700" data-testid={`skill-category-${categoryIndex}`}>
+            <div key={categoryIndex} className="skill-card p-6 rounded-xl border border-gray-700 animate-fadeInUp" style={{animationDelay: `${categoryIndex * 0.1}s`}} data-testid={`skill-category-${categoryIndex}`}>
               <div className="flex items-center mb-4">
                 {category.icon}
                 <h3 className="text-xl font-semibold ml-3">{category.title}</h3>

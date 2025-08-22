@@ -35,7 +35,7 @@ export default function Navigation() {
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
-            <a href="#home" className="nav-item text-gray-300 hover:text-blue-400" onClick={handleNavClick} data-testid="nav-home">Home</a>
+            <a href="#home" className="nav-item text-gray-300 hover:text-blue-400" onClick={handleNavClick} data-testid="nav-home">Home <span className="text-gradient-primary font-bold">KSG</span></a>
             <a href="#about" className="nav-item text-gray-300 hover:text-blue-400" onClick={handleNavClick} data-testid="nav-about">About</a>
             <a href="#skills" className="nav-item text-gray-300 hover:text-blue-400" onClick={handleNavClick} data-testid="nav-skills">Skills</a>
             <a href="#experience" className="nav-item text-gray-300 hover:text-blue-400" onClick={handleNavClick} data-testid="nav-experience">Experience</a>
@@ -59,7 +59,7 @@ export default function Navigation() {
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4" data-testid="mobile-menu">
             <div className="flex flex-col space-y-3">
-              <a href="#home" className="nav-item text-gray-300 hover:text-blue-400 block py-2" onClick={handleNavClick} data-testid="mobile-nav-home">Home</a>
+              <a href="#home" className="nav-item text-gray-300 hover:text-blue-400 block py-2" onClick={handleNavClick} data-testid="mobile-nav-home">Home <span className="text-gradient-primary font-bold">KSG</span></a>
               <a href="#about" className="nav-item text-gray-300 hover:text-blue-400 block py-2" onClick={handleNavClick} data-testid="mobile-nav-about">About</a>
               <a href="#skills" className="nav-item text-gray-300 hover:text-blue-400 block py-2" onClick={handleNavClick} data-testid="mobile-nav-skills">Skills</a>
               <a href="#experience" className="nav-item text-gray-300 hover:text-blue-400 block py-2" onClick={handleNavClick} data-testid="mobile-nav-experience">Experience</a>
