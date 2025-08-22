@@ -189,6 +189,31 @@
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+  
+  .role-animation {
+    display: inline-block;
+    background: linear-gradient(to right, var(--gradient-blue), var(--gradient-emerald));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.5s ease-in-out;
+    animation: roleSwitch 0.5s ease-in-out;
+  }
+  
+  @keyframes roleSwitch {
+    0% { 
+      opacity: 0; 
+      transform: translateY(-10px) scale(1.1);
+    }
+    50% { 
+      opacity: 0.5; 
+      transform: translateY(-5px) scale(1.05);
+    }
+    100% { 
+      opacity: 1; 
+      transform: translateY(0) scale(1);
+    }
+  }
 }
 
 @layer utilities {

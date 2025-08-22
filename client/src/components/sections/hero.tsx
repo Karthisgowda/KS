@@ -1,6 +1,17 @@
 import { Mail, Phone, Github, Linkedin } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function Hero() {
+  const [currentRole, setCurrentRole] = useState("Front End");
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentRole(prev => prev === "Front End" ? "Back End" : "Front End");
+    }, 2000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   const handleScrollToSection = (sectionId: string) => {
     const section = document.querySelector(sectionId);
     if (section) {
@@ -25,7 +36,7 @@ export default function Hero() {
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 mb-8 animate-fadeInUp" style={{animationDelay: '0.2s'}} data-testid="hero-subtitle">
-            Full Stack Developer & Android Developer
+            <span className="role-animation">{currentRole}</span> Developer
           </p>
           <p className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto animate-fadeInUp" style={{animationDelay: '0.4s'}} data-testid="hero-description">
             BCA student with hands-on experience in building efficient and impactful technology solutions. 
