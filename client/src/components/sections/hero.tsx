@@ -2,11 +2,16 @@ import { Mail, Phone, Github, Linkedin } from "lucide-react";
 import { useState, useEffect } from "react";
 
 export default function Hero() {
-  const [currentRole, setCurrentRole] = useState("Front End");
+  const [currentRole, setCurrentRole] = useState("Full Stack");
+  const [cycleCount, setCycleCount] = useState(0);
   
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentRole(prev => prev === "Front End" ? "Back End" : "Front End");
+      setCycleCount(prev => prev + 1);
+      setCurrentRole(prev => {
+        if (prev === "Full Stack") return "Front End";
+        return prev === "Front End" ? "Back End" : "Front End";
+      });
     }, 2000);
     
     return () => clearInterval(interval);
