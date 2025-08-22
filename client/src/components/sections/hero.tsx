@@ -14,11 +14,11 @@ export default function Hero() {
       setTimeout(() => {
         setCurrentRole("Back End");
         setStep(2);
-      }, 4000),
+      }, 3000),
       setTimeout(() => {
         setCurrentRole("Full Stack");
         setStep(3);
-      }, 6000)
+      }, 4000)
     ];
     
     return () => {
