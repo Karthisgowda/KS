@@ -29,7 +29,7 @@ export default function Navigation() {
         <div className="flex justify-between items-center">
           <div className="text-2xl font-bold">
             <span className="text-gradient-primary">
-              Karthik S Gowda
+              KSG
             </span>
           </div>
           
