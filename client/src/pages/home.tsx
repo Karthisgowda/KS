@@ -6,9 +6,6 @@ import About from "@/components/sections/about";
 import Skills from "@/components/sections/skills";
 import Experience from "@/components/sections/experience";
 import Projects from "@/components/sections/projects";
-import Education from "@/components/sections/education";
-import Certificates from "@/components/sections/certificates";
-import Achievements from "@/components/sections/achievements";
 import Contact from "@/components/sections/contact";
 
 export default function Home() {
@@ -18,7 +15,7 @@ export default function Home() {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -26,7 +23,7 @@ export default function Home() {
         }
       });
     }, observerOptions);
-    
+
     // Observe all sections with animation
     document.querySelectorAll('.section-appear').forEach(section => {
       observer.observe(section);
@@ -36,7 +33,7 @@ export default function Home() {
     const handleScroll = () => {
       const sections = document.querySelectorAll('section[id]');
       const navLinks = document.querySelectorAll('nav a[href^="#"]');
-      
+
       let current = '';
       sections.forEach(section => {
         const sectionTop = (section as HTMLElement).offsetTop;
@@ -44,13 +41,11 @@ export default function Home() {
           current = section.getAttribute('id') || '';
         }
       });
-      
+
       navLinks.forEach(link => {
-        link.classList.remove('text-blue-400');
-        link.classList.add('text-gray-300');
+        link.classList.remove('active');
         if (link.getAttribute('href') === `#${current}`) {
-          link.classList.remove('text-gray-300');
-          link.classList.add('text-blue-400');
+          link.classList.add('active');
         }
       });
     };
@@ -64,16 +59,13 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-dark-900 text-gray-100 overflow-x-hidden">
+    <div className="bg-mono-100 text-mono-900 overflow-x-hidden">
       <Navigation />
       <Hero />
       <About />
+      <Projects />
       <Skills />
       <Experience />
-      <Projects />
-      <Education />
-      <Certificates />
-      <Achievements />
       <Contact />
       <Footer />
     </div>
