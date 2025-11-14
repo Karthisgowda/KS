@@ -74,10 +74,24 @@
 }
 
 @layer components {
+  /* Card Styles */
   .minimal-card {
     background: var(--mono-100);
     border: 1px solid var(--mono-300);
     transition: all var(--duration-normal) var(--ease-out-expo);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .minimal-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 1px;
+    background: var(--mono-900);
+    transition: left 0.5s var(--ease-out-expo);
   }
 
   .minimal-card:hover {
@@ -85,19 +99,16 @@
     transform: translateY(-4px);
   }
 
+  .minimal-card:hover::before {
+    left: 100%;
+  }
+
+  /* Navigation */
   .glass-effect {
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--mono-300);
-  }
-
-  .hover-lift {
-    transition: all var(--duration-normal) var(--ease-out-expo);
-  }
-
-  .hover-lift:hover {
-    transform: translateY(-2px);
   }
 
   .nav-item {
@@ -122,6 +133,24 @@
     width: 100%;
   }
 
+  /* Hover Effects */
+  .hover-lift {
+    transition: all var(--duration-normal) var(--ease-out-expo);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
+
+  .hover-scale {
+    transition: transform var(--duration-normal) var(--ease-out-expo);
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.02);
+  }
+
+  /* Scroll Animations */
   .section-appear {
     opacity: 0;
     transform: translateY(30px);
@@ -148,6 +177,11 @@
     animation: fadeIn 0.8s var(--ease-out-expo);
   }
 
+  .stagger-in {
+    animation: fadeIn 0.8s var(--ease-out-expo);
+  }
+
+  /* Animations */
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -157,6 +191,64 @@
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Text Selection */
+  ::selection {
+    background: var(--mono-900);
+    color: var(--mono-100);
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--mono-200);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--mono-600);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--mono-900);
   }
 }
 
