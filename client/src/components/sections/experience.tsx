@@ -1,51 +1,47 @@
-import { ChevronRight } from "lucide-react";
-
 export default function Experience() {
   return (
-    <section id="experience" className="py-20 section-appear">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6" data-testid="experience-title">
-            <span className="text-gradient-primary">
-              Work Experience
-            </span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-emerald-500 mx-auto rounded-full"></div>
-        </div>
-        
-        <div className="max-w-4xl mx-auto">
-          <div className="gradient-border hover-lift" data-testid="experience-card">
-            <div className="gradient-border-content">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                <div>
-                  <h3 className="text-2xl font-semibold text-blue-400 mb-2" data-testid="job-title">Full Stack Developer Intern</h3>
-                  <p className="text-lg text-emerald-400 font-medium" data-testid="company-name">Salesine Technology Ltd, Bangalore</p>
+    <section id="experience" className="py-32 md:py-40 section-appear bg-mono-100">
+      <div className="container mx-auto px-6 md:px-12 lg:px-24 max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+          {/* Left - Title */}
+          <div className="lg:col-span-3">
+            <h2 className="text-sm uppercase tracking-wider text-mono-600 font-medium sticky top-32" data-testid="experience-title">
+              Experience
+            </h2>
+          </div>
+
+          {/* Right - Experience */}
+          <div className="lg:col-span-9">
+            <div className="border-l border-mono-300 pl-8 md:pl-12">
+              <div className="space-y-2 mb-8" data-testid="experience-card">
+                <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
+                  <h3 className="text-2xl md:text-3xl font-display font-semibold letter-tight text-mono-900" data-testid="job-title">
+                    Full Stack Developer Intern
+                  </h3>
+                  <p className="text-mono-600 font-medium" data-testid="job-duration">
+                    Dec 2024 – Mar 2025
+                  </p>
                 </div>
-                <div className="text-gray-400 font-medium mt-2 md:mt-0" data-testid="job-duration">
-                  Dec 2024 – Mar 2025
-                </div>
+                <p className="text-lg text-mono-700" data-testid="company-name">
+                  Salesine Technology Ltd, Bangalore
+                </p>
               </div>
-              
-              <ul className="space-y-3 text-gray-300">
-                <li className="flex items-start" data-testid="job-responsibility-1">
-                  <ChevronRight className="text-blue-400 mt-1 mr-3 flex-shrink-0" size={16} />
-                  Built a web app using NestJS (backend) and Vue.js (frontend).
+
+              <ul className="space-y-4 text-mono-700 leading-relaxed">
+                <li data-testid="job-responsibility-1">
+                  Built a full-stack web application using NestJS for backend architecture and Vue.js for frontend development
                 </li>
-                <li className="flex items-start" data-testid="job-responsibility-2">
-                  <ChevronRight className="text-blue-400 mt-1 mr-3 flex-shrink-0" size={16} />
-                  Created RESTful APIs, implemented MVC architecture in TypeScript.
+                <li data-testid="job-responsibility-2">
+                  Designed and implemented RESTful APIs following MVC architecture patterns in TypeScript
                 </li>
-                <li className="flex items-start" data-testid="job-responsibility-3">
-                  <ChevronRight className="text-blue-400 mt-1 mr-3 flex-shrink-0" size={16} />
-                  Used Vue Router, Vuex for dynamic and state-managed UI.
+                <li data-testid="job-responsibility-3">
+                  Developed dynamic, state-managed user interfaces using Vue Router and Vuex
                 </li>
-                <li className="flex items-start" data-testid="job-responsibility-4">
-                  <ChevronRight className="text-blue-400 mt-1 mr-3 flex-shrink-0" size={16} />
-                  Integrated GraphQL and handled secure authentication flows.
+                <li data-testid="job-responsibility-4">
+                  Integrated GraphQL APIs and implemented secure authentication workflows
                 </li>
-                <li className="flex items-start" data-testid="job-responsibility-5">
-                  <ChevronRight className="text-blue-400 mt-1 mr-3 flex-shrink-0" size={16} />
-                  Deployed a responsive, production-ready application.
+                <li data-testid="job-responsibility-5">
+                  Successfully deployed production-ready, responsive application to live environment
                 </li>
               </ul>
             </div>

@@ -5,6 +5,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/home";
 import NotFound from "@/pages/not-found";
+import CustomCursor from "@/components/ui/cursor";
+import PageTransition from "@/components/ui/page-transition";
+import ScrollProgress from "@/components/ui/scroll-progress";
 
 function Router() {
   return (
@@ -19,7 +22,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div className="dark">
+        <div>
+          <PageTransition />
+          <CustomCursor />
+          <ScrollProgress />
           <Toaster />
           <Router />
         </div>
