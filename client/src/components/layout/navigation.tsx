@@ -23,50 +23,72 @@ export default function Navigation() {
     }
   };
 
+  const navItems = [
+    { href: "#home", label: "Home", testId: "nav-home" },
+    { href: "#about", label: "About", testId: "nav-about" },
+    { href: "#skills", label: "Skills", testId: "nav-skills" },
+    { href: "#experience", label: "Experience", testId: "nav-experience" },
+    { href: "#projects", label: "Projects", testId: "nav-projects" },
+    { href: "#education", label: "Education", testId: "nav-education" },
+    { href: "#certificates", label: "Certificates", testId: "nav-certificates" },
+    { href: "#contact", label: "Contact", testId: "nav-contact" },
+  ];
+
   return (
     <nav className="fixed top-0 w-full z-50 glass-effect">
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex justify-between items-center">
-          <div className="text-2xl font-bold">
+      <div className="container mx-auto px-6 md:px-8 lg:px-12">
+        <div className="flex justify-between items-center h-16 md:h-20">
+          {/* Logo */}
+          <div className="text-xl md:text-2xl font-bold tracking-tight">
             <span className="text-gradient-primary">
               KSG
             </span>
           </div>
-          
+
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
-            <a href="#home" className="nav-item text-gray-300 hover:text-blue-400" onClick={handleNavClick} data-testid="nav-home">Home</a>
-            <a href="#about" className="nav-item text-gray-300 hover:text-blue-400" onClick={handleNavClick} data-testid="nav-about">About</a>
-            <a href="#skills" className="nav-item text-gray-300 hover:text-blue-400" onClick={handleNavClick} data-testid="nav-skills">Skills</a>
-            <a href="#experience" className="nav-item text-gray-300 hover:text-blue-400" onClick={handleNavClick} data-testid="nav-experience">Experience</a>
-            <a href="#projects" className="nav-item text-gray-300 hover:text-blue-400" onClick={handleNavClick} data-testid="nav-projects">Projects</a>
-            <a href="#education" className="nav-item text-gray-300 hover:text-blue-400" onClick={handleNavClick} data-testid="nav-education">Education</a>
-            <a href="#certificates" className="nav-item text-gray-300 hover:text-blue-400" onClick={handleNavClick} data-testid="nav-certificates">Certificates</a>
-            <a href="#contact" className="nav-item text-gray-300 hover:text-blue-400" onClick={handleNavClick} data-testid="nav-contact">Contact</a>
+          <div className="hidden lg:flex items-center gap-8">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="nav-item text-sm text-gray-400 hover:text-white"
+                onClick={handleNavClick}
+                data-testid={item.testId}
+              >
+                {item.label}
+              </a>
+            ))}
           </div>
-          
+
           {/* Mobile Menu Button */}
-          <button 
+          <button
             onClick={toggleMobileMenu}
-            className="md:hidden text-gray-300 hover:text-blue-400 focus:outline-none"
+            className="lg:hidden text-gray-400 hover:text-white focus:outline-none transition-colors duration-300"
             data-testid="mobile-menu-toggle"
+            aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
           </button>
         </div>
-        
+
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4" data-testid="mobile-menu">
-            <div className="flex flex-col space-y-3">
-              <a href="#home" className="nav-item text-gray-300 hover:text-blue-400 block py-2" onClick={handleNavClick} data-testid="mobile-nav-home">Home</a>
-              <a href="#about" className="nav-item text-gray-300 hover:text-blue-400 block py-2" onClick={handleNavClick} data-testid="mobile-nav-about">About</a>
-              <a href="#skills" className="nav-item text-gray-300 hover:text-blue-400 block py-2" onClick={handleNavClick} data-testid="mobile-nav-skills">Skills</a>
-              <a href="#experience" className="nav-item text-gray-300 hover:text-blue-400 block py-2" onClick={handleNavClick} data-testid="mobile-nav-experience">Experience</a>
-              <a href="#projects" className="nav-item text-gray-300 hover:text-blue-400 block py-2" onClick={handleNavClick} data-testid="mobile-nav-projects">Projects</a>
-              <a href="#education" className="nav-item text-gray-300 hover:text-blue-400 block py-2" onClick={handleNavClick} data-testid="mobile-nav-education">Education</a>
-              <a href="#certificates" className="nav-item text-gray-300 hover:text-blue-400 block py-2" onClick={handleNavClick} data-testid="mobile-nav-certificates">Certificates</a>
-              <a href="#contact" className="nav-item text-gray-300 hover:text-blue-400 block py-2" onClick={handleNavClick} data-testid="mobile-nav-contact">Contact</a>
+          <div
+            className="lg:hidden border-t border-white/10 animate-slideDown"
+            data-testid="mobile-menu"
+          >
+            <div className="flex flex-col py-6 space-y-1">
+              {navItems.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="text-sm text-gray-400 hover:text-white py-3 px-4 rounded-lg hover:bg-white/5 transition-all duration-300"
+                  onClick={handleNavClick}
+                  data-testid={`mobile-${item.testId}`}
+                >
+                  {item.label}
+                </a>
+              ))}
             </div>
           </div>
         )}

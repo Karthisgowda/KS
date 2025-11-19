@@ -5,10 +5,35 @@ export default {
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      // Apple-inspired spacing scale (8pt grid system)
+      spacing: {
+        '18': '4.5rem',
+        '88': '22rem',
+        '128': '32rem',
+      },
+      // Apple-inspired typography scale
+      fontSize: {
+        'xs': ['0.75rem', { lineHeight: '1rem', letterSpacing: '0.025em' }],
+        'sm': ['0.875rem', { lineHeight: '1.25rem', letterSpacing: '0.0125em' }],
+        'base': ['1rem', { lineHeight: '1.5rem', letterSpacing: '0' }],
+        'lg': ['1.125rem', { lineHeight: '1.75rem', letterSpacing: '-0.0125em' }],
+        'xl': ['1.25rem', { lineHeight: '1.875rem', letterSpacing: '-0.0125em' }],
+        '2xl': ['1.5rem', { lineHeight: '2rem', letterSpacing: '-0.025em' }],
+        '3xl': ['1.875rem', { lineHeight: '2.25rem', letterSpacing: '-0.025em' }],
+        '4xl': ['2.25rem', { lineHeight: '2.5rem', letterSpacing: '-0.025em' }],
+        '5xl': ['3rem', { lineHeight: '1.2', letterSpacing: '-0.025em' }],
+        '6xl': ['3.75rem', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
+        '7xl': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
+        '8xl': ['6rem', { lineHeight: '1', letterSpacing: '-0.025em' }],
+        '9xl': ['8rem', { lineHeight: '1', letterSpacing: '-0.05em' }],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        'xl': '1rem',
+        '2xl': '1.5rem',
+        '3xl': '2rem',
       },
       colors: {
         background: "var(--background)",
@@ -54,6 +79,7 @@ export default {
           800: "var(--dark-800)",
           700: "var(--dark-700)",
           600: "var(--dark-600)",
+          500: "var(--dark-500)",
         },
         chart: {
           "1": "var(--chart-1)",
@@ -79,6 +105,18 @@ export default {
         serif: ["var(--font-serif)"],
         mono: ["var(--font-mono)"],
       },
+      // Apple-inspired backdrop blur
+      backdropBlur: {
+        xs: '2px',
+        '3xl': '64px',
+      },
+      // Apple-inspired box shadows
+      boxShadow: {
+        'apple-sm': '0 2px 8px 0 rgba(0, 0, 0, 0.08)',
+        'apple': '0 4px 16px 0 rgba(0, 0, 0, 0.12)',
+        'apple-lg': '0 8px 32px 0 rgba(0, 0, 0, 0.16)',
+        'apple-xl': '0 16px 64px 0 rgba(0, 0, 0, 0.24)',
+      },
       keyframes: {
         "accordion-down": {
           from: {
@@ -97,62 +135,78 @@ export default {
           },
         },
         float: {
-          "0%, 100%": { 
-            transform: "translateY(0px) rotate(0deg)" 
+          "0%, 100%": {
+            transform: "translateY(0px)"
           },
-          "50%": { 
-            transform: "translateY(-20px) rotate(3deg)" 
+          "50%": {
+            transform: "translateY(-12px)"
           },
         },
         fadeInUp: {
-          from: { 
-            opacity: "0", 
-            transform: "translateY(30px)" 
+          from: {
+            opacity: "0",
+            transform: "translateY(24px)"
           },
-          to: { 
-            opacity: "1", 
-            transform: "translateY(0)" 
+          to: {
+            opacity: "1",
+            transform: "translateY(0)"
           },
         },
         fadeInLeft: {
-          from: { 
-            opacity: "0", 
-            transform: "translateX(-30px)" 
+          from: {
+            opacity: "0",
+            transform: "translateX(-24px)"
           },
-          to: { 
-            opacity: "1", 
-            transform: "translateX(0)" 
+          to: {
+            opacity: "1",
+            transform: "translateX(0)"
           },
         },
         fadeInRight: {
-          from: { 
-            opacity: "0", 
-            transform: "translateX(30px)" 
+          from: {
+            opacity: "0",
+            transform: "translateX(24px)"
           },
-          to: { 
-            opacity: "1", 
-            transform: "translateX(0)" 
+          to: {
+            opacity: "1",
+            transform: "translateX(0)"
           },
         },
         scaleIn: {
-          from: { 
-            opacity: "0", 
-            transform: "scale(0.9)" 
+          from: {
+            opacity: "0",
+            transform: "scale(0.95)"
           },
-          to: { 
-            opacity: "1", 
-            transform: "scale(1)" 
+          to: {
+            opacity: "1",
+            transform: "scale(1)"
           },
         },
+        slideDown: {
+          from: {
+            opacity: "0",
+            transform: "translateY(-8px)"
+          },
+          to: {
+            opacity: "1",
+            transform: "translateY(0)"
+          }
+        }
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        float: "float 6s ease-in-out infinite",
-        fadeInUp: "fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
-        fadeInLeft: "fadeInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
-        fadeInRight: "fadeInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
-        scaleIn: "scaleIn 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+        "accordion-down": "accordion-down 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+        "accordion-up": "accordion-up 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+        float: "float 8s cubic-bezier(0.4, 0, 0.2, 1) infinite",
+        fadeInUp: "fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+        fadeInLeft: "fadeInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+        fadeInRight: "fadeInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+        scaleIn: "scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+        slideDown: "slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+      },
+      // Apple-inspired transition timing
+      transitionTimingFunction: {
+        'apple': 'cubic-bezier(0.4, 0, 0.2, 1)',
+        'apple-smooth': 'cubic-bezier(0.25, 0.1, 0.25, 1)',
       },
     },
   },
