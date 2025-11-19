@@ -77,135 +77,160 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-20 bg-dark-800 section-appear">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6" data-testid="contact-title">
+    <section id="contact" className="py-24 md:py-32 bg-dark-800 section-appear">
+      <div className="container mx-auto px-6 md:px-8 lg:px-12">
+        {/* Section Header */}
+        <div className="text-center mb-16 md:mb-20">
+          <h2 className="text-title-2 mb-4" data-testid="contact-title">
             <span className="text-gradient-primary">
               Get In Touch
             </span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-emerald-500 mx-auto rounded-full"></div>
-          <p className="text-xl text-gray-300 mt-6 max-w-2xl mx-auto" data-testid="contact-description">
+          <div className="w-16 h-1 bg-gradient-to-r from-primary-600 to-primary-500 mx-auto rounded-full mb-6"></div>
+          <p className="text-body-large text-gray-400 max-w-2xl mx-auto" data-testid="contact-description">
             Ready to collaborate on your next project? Let's connect and build something amazing together!
           </p>
         </div>
-        
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
+
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 md:gap-12">
           {/* Contact Information */}
           <div className="space-y-8">
-            <h3 className="text-2xl font-semibold text-blue-400 mb-6" data-testid="contact-info-title">Contact Information</h3>
-            
+            <h3 className="text-2xl font-semibold text-white mb-8" data-testid="contact-info-title">
+              Contact Information
+            </h3>
+
             {contactInfo.map((info, index) => (
-              <div key={index} className="flex items-center space-x-4 hover-lift" data-testid={`contact-info-${index}`}>
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-lg flex items-center justify-center">
-                  {info.icon}
+              <div
+                key={index}
+                className="flex items-center gap-4 group"
+                data-testid={`contact-info-${index}`}
+              >
+                <div className="w-12 h-12 bg-primary-600/10 rounded-xl flex items-center justify-center shrink-0">
+                  <div className="text-primary-500">{info.icon}</div>
                 </div>
                 <div>
-                  <p className="text-gray-400">{info.label}</p>
+                  <p className="text-sm text-gray-500 mb-1">{info.label}</p>
                   {info.link ? (
-                    <a href={info.link} className="text-lg text-gray-300 hover:text-blue-400" data-testid={`contact-link-${index}`}>
+                    <a
+                      href={info.link}
+                      className="text-base text-gray-300 hover:text-primary-500 transition-colors"
+                      data-testid={`contact-link-${index}`}
+                    >
                       {info.value}
                     </a>
                   ) : (
-                    <p className="text-lg text-gray-300" data-testid={`contact-value-${index}`}>{info.value}</p>
+                    <p className="text-base text-gray-300" data-testid={`contact-value-${index}`}>
+                      {info.value}
+                    </p>
                   )}
                 </div>
               </div>
             ))}
-            
+
             {/* Social Links */}
-            <div className="pt-6">
-              <h4 className="text-lg font-semibold text-gray-300 mb-4" data-testid="social-title">Follow Me</h4>
-              <div className="flex space-x-4">
+            <div className="pt-8">
+              <h4 className="text-lg font-semibold text-white mb-4" data-testid="social-title">
+                Follow Me
+              </h4>
+              <div className="flex gap-4">
                 {socialLinks.map((social, index) => (
-                  <a 
+                  <a
                     key={index}
-                    href={social.link} 
-                    target="_blank" 
+                    href={social.link}
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-lg flex items-center justify-center hover-lift"
+                    className="w-12 h-12 bg-primary-600/10 rounded-xl flex items-center justify-center hover:bg-primary-600/20 transition-colors"
                     data-testid={`social-link-${index}`}
                     aria-label={social.label}
                   >
-                    {social.icon}
+                    <div className="text-primary-500">{social.icon}</div>
                   </a>
                 ))}
               </div>
             </div>
           </div>
-          
+
           {/* Contact Form */}
-          <div className="gradient-border">
-            <form className="gradient-border-content" onSubmit={handleSubmit} data-testid="contact-form">
-              <h3 className="text-2xl font-semibold text-blue-400 mb-6" data-testid="form-title">Send Me a Message</h3>
-              
+          <div className="apple-card p-8 md:p-10 rounded-2xl">
+            <form onSubmit={handleSubmit} data-testid="contact-form">
+              <h3 className="text-2xl font-semibold text-white mb-8" data-testid="form-title">
+                Send Me a Message
+              </h3>
+
               <div className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-gray-300 font-medium mb-2">Name</label>
+                  <label htmlFor="name" className="block text-sm text-gray-400 font-medium mb-2">
+                    Name
+                  </label>
                   <Input
                     type="text"
                     id="name"
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-dark-600 border border-gray-600 rounded-lg text-gray-300 focus:border-blue-500 focus:outline-none transition-all duration-300"
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-300 placeholder:text-gray-600 focus:border-primary-500 focus:outline-none transition-colors"
                     placeholder="Your Name"
                     data-testid="input-name"
                     required
                   />
                 </div>
-                
+
                 <div>
-                  <label htmlFor="email" className="block text-gray-300 font-medium mb-2">Email</label>
+                  <label htmlFor="email" className="block text-sm text-gray-400 font-medium mb-2">
+                    Email
+                  </label>
                   <Input
                     type="email"
                     id="email"
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-dark-600 border border-gray-600 rounded-lg text-gray-300 focus:border-blue-500 focus:outline-none transition-all duration-300"
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-300 placeholder:text-gray-600 focus:border-primary-500 focus:outline-none transition-colors"
                     placeholder="your.email@example.com"
                     data-testid="input-email"
                     required
                   />
                 </div>
-                
+
                 <div>
-                  <label htmlFor="subject" className="block text-gray-300 font-medium mb-2">Subject</label>
+                  <label htmlFor="subject" className="block text-sm text-gray-400 font-medium mb-2">
+                    Subject
+                  </label>
                   <Input
                     type="text"
                     id="subject"
                     name="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-dark-600 border border-gray-600 rounded-lg text-gray-300 focus:border-blue-500 focus:outline-none transition-all duration-300"
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-300 placeholder:text-gray-600 focus:border-primary-500 focus:outline-none transition-colors"
                     placeholder="Project Collaboration"
                     data-testid="input-subject"
                   />
                 </div>
-                
+
                 <div>
-                  <label htmlFor="message" className="block text-gray-300 font-medium mb-2">Message</label>
+                  <label htmlFor="message" className="block text-sm text-gray-400 font-medium mb-2">
+                    Message
+                  </label>
                   <Textarea
                     id="message"
                     name="message"
                     rows={5}
                     value={formData.message}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-dark-600 border border-gray-600 rounded-lg text-gray-300 focus:border-blue-500 focus:outline-none transition-all duration-300 resize-none"
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-300 placeholder:text-gray-600 focus:border-primary-500 focus:outline-none transition-colors resize-none"
                     placeholder="Tell me about your project..."
                     data-testid="input-message"
                     required
                   />
                 </div>
-                
+
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-500 to-emerald-500 text-white font-semibold py-3 rounded-lg hover-lift"
+                  className="apple-button w-full py-4 text-base inline-flex items-center justify-center"
                   data-testid="button-submit"
                 >
-                  <Send size={16} className="mr-2" />
+                  <Send size={18} strokeWidth={1.5} className="mr-2" />
                   Send Message
                 </Button>
               </div>
