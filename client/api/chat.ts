@@ -17,6 +17,12 @@ const systemPrompt = [
   "If asked something unrelated, politely redirect the conversation back to Karthik's profile and work.",
 ].join("\n");
 
+declare const process: {
+  env: {
+    GROQ_API_KEY?: string;
+  };
+};
+
 type ChatRequest = {
   method?: string;
   body?: {
