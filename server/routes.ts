@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 
 const contactRecipientEmail = "karthiksgowda28@gmail.com";
+const siteUrl = "https://ks-kohl.vercel.app";
 const toCleanString = (value: unknown) => (typeof value === "string" ? value.trim() : "");
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -27,6 +28,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Origin: siteUrl,
+          Referer: `${siteUrl}/`,
         },
         body: JSON.stringify({
           name,
@@ -41,9 +44,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const data = await response.json().catch(() => null);
 
-      if (!response.ok) {
+      if (!response.ok || data?.success === "false") {
         return res.status(502).json({
-          message: "Email service could not send the message right now.",
+          message: data?.message || "Email service could not send the message right now.",
           details: data,
         });
       }

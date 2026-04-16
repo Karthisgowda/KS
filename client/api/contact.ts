@@ -1,4 +1,5 @@
 const recipientEmail = "karthiksgowda28@gmail.com";
+const siteUrl = "https://ks-kohl.vercel.app";
 
 type ContactRequest = {
   method?: string;
@@ -43,6 +44,8 @@ export default async function handler(req: ContactRequest, res: ContactResponse)
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Origin: siteUrl,
+        Referer: `${siteUrl}/`,
       },
       body: JSON.stringify({
         name,
@@ -57,9 +60,9 @@ export default async function handler(req: ContactRequest, res: ContactResponse)
 
     const data = await response.json().catch(() => null);
 
-    if (!response.ok) {
+    if (!response.ok || data?.success === "false") {
       return res.status(502).json({
-        message: "Email service could not send the message right now.",
+        message: data?.message || "Email service could not send the message right now.",
         details: data,
       });
     }
