@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Contact() {
+  const contactEndpoint = "https://formsubmit.co/ajax/karthiksgowda28@gmail.com";
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -35,17 +36,26 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch(contactEndpoint, {
         method: "POST",
         headers: {
+          Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          _replyto: formData.email,
+          _subject: `Portfolio contact: ${formData.subject || "New message"}`,
+          message: formData.message,
+          _template: "table",
+          _captcha: "false",
+        }),
       });
 
       const data = await response.json();
 
-      if (!response.ok) {
+      if (!response.ok || data?.success === "false") {
         throw new Error(data?.message || "Could not send your message.");
       }
 
