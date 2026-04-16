@@ -1,107 +1,102 @@
-import { Mail, Phone, Github, Linkedin } from "lucide-react";
-import { useState, useEffect } from "react";
+import { ArrowUpRight, Github, Linkedin, Mail, Phone, Sparkles } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
   const [currentRole, setCurrentRole] = useState("Full Stack");
-  
+  const githubProfile = "https://github.com/Karthisgowda";
+
   useEffect(() => {
     const timeouts = [
-      setTimeout(() => {
-        setCurrentRole("Front End");
-      }, 2000),
-      setTimeout(() => {
-        setCurrentRole("Back End");
-      }, 3000),
-      setTimeout(() => {
-        setCurrentRole("Full Stack");
-      }, 4000)
+      setTimeout(() => setCurrentRole("Front End"), 2000),
+      setTimeout(() => setCurrentRole("Back End"), 3000),
+      setTimeout(() => setCurrentRole("Full Stack"), 4000),
     ];
-    
+
     return () => {
-      timeouts.forEach(timeout => clearTimeout(timeout));
+      timeouts.forEach((timeout) => clearTimeout(timeout));
     };
   }, []);
 
   const handleScrollToSection = (sectionId: string) => {
     const section = document.querySelector(sectionId);
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-dark-800 to-dark-900"></div>
-      
-      {/* Floating Background Elements */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-blue-500 rounded-full opacity-10 animate-float"></div>
-      <div className="absolute bottom-20 right-10 w-24 h-24 bg-emerald-500 rounded-full opacity-10 animate-float" style={{animationDelay: '-2s'}}></div>
-      <div className="absolute top-1/2 left-1/3 w-16 h-16 bg-amber-500 rounded-full opacity-10 animate-float" style={{animationDelay: '-4s'}}></div>
-      
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-dark-800 to-dark-900" />
+      <div className="absolute top-20 left-10 w-32 h-32 bg-blue-500 rounded-full opacity-10 animate-float" />
+      <div className="absolute bottom-20 right-10 w-24 h-24 bg-emerald-500 rounded-full opacity-10 animate-float" style={{ animationDelay: "-2s" }} />
+      <div className="absolute top-1/2 left-1/3 w-16 h-16 bg-amber-500 rounded-full opacity-10 animate-float" style={{ animationDelay: "-4s" }} />
+
       <div className="container mx-auto px-6 text-center relative z-10">
         <div className="animate-fadeInUp">
           <h1 className="text-5xl md:text-7xl font-bold mb-6" data-testid="hero-title">
-            <span className="text-gradient-full">
-              Karthik S Gowda
-            </span>
+            <span className="text-gradient-full">Karthik S Gowda</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-8 animate-fadeInUp" style={{animationDelay: '0.2s'}} data-testid="hero-subtitle">
+          <p className="text-xl md:text-2xl text-gray-300 mb-8 animate-fadeInUp" style={{ animationDelay: "0.2s" }} data-testid="hero-subtitle">
             <span className="role-animation">{currentRole}</span> Developer
           </p>
-          <p className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto animate-fadeInUp" style={{animationDelay: '0.4s'}} data-testid="hero-description">
-            BCA student with hands-on experience in building efficient and impactful technology solutions. 
-            Passionate about creating user-centric applications with modern technologies.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fadeInUp" style={{animationDelay: '0.6s'}}>
-            <button 
-              onClick={() => handleScrollToSection('#contact')}
-              className="bg-gradient-to-r from-blue-500 to-emerald-500 text-white px-8 py-3 rounded-lg font-semibold hover-lift"
+
+          <div className="hero-intro-card animate-fadeInUp" style={{ animationDelay: "0.35s" }}>
+            <div className="hero-intro-kicker">
+              <Sparkles size={16} />
+              <span>Portfolio Studio</span>
+            </div>
+            <p className="text-lg text-gray-300 max-w-3xl mx-auto" data-testid="hero-description">
+              BCA student, builder, and fast learner focused on full-stack web experiences, practical backend systems,
+              and clean interfaces that feel intentional. I enjoy turning real problems into useful digital products.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fadeInUp" style={{ animationDelay: "0.6s" }}>
+            <button
+              onClick={() => handleScrollToSection("#contact")}
+              className="hero-cta-primary"
               data-testid="button-get-in-touch"
             >
               Get In Touch
             </button>
-            <button 
-              onClick={() => handleScrollToSection('#projects')}
-              className="border border-blue-500 text-blue-400 px-8 py-3 rounded-lg font-semibold hover-lift hover:bg-blue-500 hover:text-white transition-all duration-300"
+            <a
+              href={githubProfile}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hero-cta-secondary"
               data-testid="button-view-work"
             >
-              View My Work
-            </button>
+              View GitHub Projects
+              <ArrowUpRight size={16} />
+            </a>
           </div>
-          
-          {/* Social Links */}
-          <div className="flex justify-center space-x-6 mt-12 animate-fadeInUp" style={{animationDelay: '0.8s'}}>
-            <a 
-              href="mailto:karthiksgowda28@gmail.com" 
-              className="text-gray-400 hover:text-blue-400 text-2xl hover-lift"
-              data-testid="link-email"
-            >
+
+          <div className="hero-stats animate-fadeInUp" style={{ animationDelay: "0.75s" }}>
+            <div className="hero-stat-card">
+              <strong>8.58</strong>
+              <span>BCA CGPA</span>
+            </div>
+            <div className="hero-stat-card">
+              <strong>1</strong>
+              <span>Full-Stack Internship</span>
+            </div>
+            <div className="hero-stat-card">
+              <strong>3+</strong>
+              <span>Core Development Tracks</span>
+            </div>
+          </div>
+
+          <div className="flex justify-center space-x-6 mt-12 animate-fadeInUp" style={{ animationDelay: "0.8s" }}>
+            <a href="mailto:karthiksgowda28@gmail.com" className="text-gray-400 hover:text-blue-400 text-2xl hover-lift" data-testid="link-email">
               <Mail />
             </a>
-            <a 
-              href="https://linkedin.com/in/karthisg" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-blue-400 text-2xl hover-lift"
-              data-testid="link-linkedin"
-            >
+            <a href="https://linkedin.com/in/karthisg" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400 text-2xl hover-lift" data-testid="link-linkedin">
               <Linkedin />
             </a>
-            <a 
-              href="https://github.com/Karthisgowda" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-blue-400 text-2xl hover-lift"
-              data-testid="link-github"
-            >
+            <a href={githubProfile} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400 text-2xl hover-lift" data-testid="link-github">
               <Github />
             </a>
-            <a 
-              href="tel:+918050828798" 
-              className="text-gray-400 hover:text-blue-400 text-2xl hover-lift"
-              data-testid="link-phone"
-            >
+            <a href="tel:+918050828798" className="text-gray-400 hover:text-blue-400 text-2xl hover-lift" data-testid="link-phone">
               <Phone />
             </a>
           </div>

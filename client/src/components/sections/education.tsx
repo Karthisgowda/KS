@@ -5,31 +5,32 @@ export default function Education() {
     {
       degree: "Bachelor of Computer Applications (BCA)",
       institution: "Jain Deemed-to-be University, Bangalore",
-      duration: "Jul 2023 – Jun 2026",
+      duration: "Jul 2023 - Jun 2026",
       grade: "CGPA: 8.58",
-      gradeColor: "text-amber-400"
+      gradeColor: "text-amber-400",
     },
     {
       degree: "Pre-University (Commerce)",
       institution: "Vishwaprajna PU College, Mysore",
-      duration: "Jun 2021 – Jun 2023",
+      duration: "Jun 2021 - Jun 2023",
       grade: "Grade: 81%",
-      gradeColor: "text-amber-400"
-    }
+      gradeColor: "text-amber-400",
+    },
   ];
 
   return (
     <section id="education" className="py-20 section-appear">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6" data-testid="education-title">
-            <span className="text-gradient-primary">
-              Education
-            </span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-emerald-500 mx-auto rounded-full"></div>
+        <div className="section-shell">
+          <div className="section-kicker">
+            <span>Learning Path</span>
+          </div>
+          <div className="section-heading">
+            <h2 className="section-title" data-testid="education-title">Education</h2>
+            <p className="section-description">Academic progress backed by consistency, curiosity, and practical application.</p>
+          </div>
         </div>
-        
+
         <div className="max-w-4xl mx-auto space-y-8">
           {education.map((edu, index) => (
             <div key={index} className="gradient-border hover-lift" data-testid={`education-${index}`}>

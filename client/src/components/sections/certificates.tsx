@@ -1,10 +1,10 @@
 import { ExternalLink } from "lucide-react";
-import { 
-  SiPython, 
-  SiAndroid, 
-  SiMysql, 
-  SiGit, 
-  SiGoogleanalytics 
+import {
+  SiAndroid,
+  SiGit,
+  SiGoogleanalytics,
+  SiMysql,
+  SiPython,
 } from "react-icons/si";
 
 export default function Certificates() {
@@ -14,59 +14,60 @@ export default function Certificates() {
       description: "Fundamental Python programming concepts and data structures",
       icon: <SiPython className="text-amber-400 text-3xl" />,
       link: "https://drive.google.com/file/d/1lydFufG8EefbBZD5lAJnFCM1H9QURWSS/view?usp=drive_link",
-      color: "text-amber-400"
+      color: "text-amber-400",
     },
     {
       title: "Mobile App Development",
       description: "Android application development using modern frameworks",
       icon: <SiAndroid className="text-emerald-400 text-3xl" />,
       link: "https://drive.google.com/file/d/1LEgQ4cF2_CjOQzQhXqHC52GkbOCXxHNE/view?usp=drive_link",
-      color: "text-emerald-400"
+      color: "text-emerald-400",
     },
     {
       title: "SQL",
       description: "Database management and query optimization techniques",
       icon: <SiMysql className="text-blue-400 text-3xl" />,
       link: "https://drive.google.com/file/d/1hrXJgn-QM2UPxhyjPeB3w_ENHm24v5Y6/view?usp=drive_link",
-      color: "text-blue-400"
+      color: "text-blue-400",
     },
     {
       title: "Version Control",
       description: "Git and GitHub for collaborative software development",
       icon: <SiGit className="text-purple-400 text-3xl" />,
       link: "https://drive.google.com/file/d/1MdIcjmwcZoLmVPHBNXzDIpW7N_e8aERJ/view?usp=drive_link",
-      color: "text-purple-400"
+      color: "text-purple-400",
     },
     {
       title: "Data Analytics",
       description: "Data analysis, visualization, and statistical modeling",
       icon: <SiGoogleanalytics className="text-cyan-400 text-3xl" />,
       link: "https://drive.google.com/file/d/1Dy8q2ikaqh-RZrpzhDQpTBYaTrZTBYgj/view?usp=drive_link",
-      color: "text-cyan-400"
-    }
+      color: "text-cyan-400",
+    },
   ];
 
   const handleCertificateClick = (link: string) => {
-    window.open(link, '_blank', 'noopener,noreferrer');
+    window.open(link, "_blank", "noopener,noreferrer");
   };
 
   return (
     <section id="certificates" className="py-20 bg-dark-800 section-appear">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6" data-testid="certificates-title">
-            <span className="text-gradient-primary">
-              Certifications
-            </span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-emerald-500 mx-auto rounded-full"></div>
+        <div className="section-shell">
+          <div className="section-kicker">
+            <span>Credentials</span>
+          </div>
+          <div className="section-heading">
+            <h2 className="section-title" data-testid="certificates-title">Certifications</h2>
+            <p className="section-description">Focused proof points across programming, mobile, data, and version control.</p>
+          </div>
         </div>
-        
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {certificates.map((cert, index) => (
-            <div 
+            <div
               key={index}
-              className="cert-card bg-dark-700 p-6 rounded-xl border border-gray-600" 
+              className="cert-card p-6 rounded-xl border border-gray-600"
               onClick={() => handleCertificateClick(cert.link)}
               data-testid={`certificate-${index}`}
             >
