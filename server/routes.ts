@@ -2,7 +2,60 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 
+const contactRecipientEmail = "karthiksgowda28@gmail.com";
+const toCleanString = (value: unknown) => (typeof value === "string" ? value.trim() : "");
+
 export async function registerRoutes(app: Express): Promise<Server> {
+  app.post("/api/contact", async (req, res) => {
+    const name = toCleanString(req.body?.name);
+    const email = toCleanString(req.body?.email);
+    const subject = toCleanString(req.body?.subject) || "New portfolio contact message";
+    const message = toCleanString(req.body?.message);
+
+    if (!name || !email || !message) {
+      return res.status(400).json({ message: "Name, email, and message are required." });
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      return res.status(400).json({ message: "Please enter a valid email address." });
+    }
+
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${contactRecipientEmail}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          _replyto: email,
+          _subject: `Portfolio contact: ${subject}`,
+          message,
+          _template: "table",
+          _captcha: "false",
+        }),
+      });
+
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        return res.status(502).json({
+          message: "Email service could not send the message right now.",
+          details: data,
+        });
+      }
+
+      return res.json({ message: "Message sent to Karthik's email." });
+    } catch (error) {
+      return res.status(500).json({
+        message: error instanceof Error ? error.message : "Unexpected email delivery error.",
+      });
+    }
+  });
+
   app.post("/api/chat", async (req, res) => {
     const apiKey = process.env.GROQ_API_KEY;
     const message = typeof req.body?.message === "string" ? req.body.message.trim() : "";
