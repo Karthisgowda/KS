@@ -27,7 +27,7 @@ export default function Hero() {
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-36 md:pt-44 pb-20">
       <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-dark-800 to-dark-900" />
       <div className="absolute top-20 left-10 w-32 h-32 bg-blue-500 rounded-full opacity-10 animate-float" />
       <div className="absolute bottom-20 right-10 w-24 h-24 bg-emerald-500 rounded-full opacity-10 animate-float" style={{ animationDelay: "-2s" }} />
@@ -35,7 +35,7 @@ export default function Hero() {
 
       <div className="container mx-auto px-6 text-center relative z-10">
         <div className="animate-fadeInUp">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6" data-testid="hero-title">
+          <h1 className="hero-title-display text-5xl md:text-7xl font-bold mb-6" data-testid="hero-title">
             <span className="text-gradient-full">Karthik S Gowda</span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 mb-8 animate-fadeInUp" style={{ animationDelay: "0.2s" }} data-testid="hero-subtitle">

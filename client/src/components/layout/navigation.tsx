@@ -30,7 +30,9 @@ export default function Navigation() {
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           <div className="brand-lockup text-2xl font-bold">
-            <span className="brand-mark">KSG</span>
+            <span className="brand-mark" aria-hidden="true">
+              <img src="/images/ksg-logo.png" alt="" className="brand-logo" />
+            </span>
             <div className="hidden md:block">
               <div className="brand-name">Karthik S Gowda</div>
               <div className="brand-role">Developer + Data Analyst</div>
