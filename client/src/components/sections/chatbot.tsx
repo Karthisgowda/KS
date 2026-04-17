@@ -90,7 +90,7 @@ export default function Chatbot() {
             <div>
               <h2 className="section-title" data-testid="chatbot-title">Ask About Karthik</h2>
               <p className="section-description" data-testid="chatbot-description">
-                This assistant explains Karthik&apos;s experience, skills, achievements, and goals using Groq-powered responses.
+                A professional AI assistant for questions about Karthik&apos;s experience, skills, achievements, and career direction.
               </p>
             </div>
           </div>

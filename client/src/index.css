@@ -571,7 +571,7 @@
 
 .chatbot-limit-card {
   max-width: 56rem;
-  margin: -2rem auto 2rem;
+  margin: 1.25rem auto 2.25rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -588,6 +588,7 @@
   background: linear-gradient(135deg, rgba(34, 211, 238, 0.14), rgba(16, 185, 129, 0.12));
   border: 1px solid rgba(125, 211, 252, 0.22);
   box-shadow: 0 12px 35px rgba(6, 182, 212, 0.08);
+  min-height: 3.2rem;
 }
 
 .chatbot-panel,
@@ -778,6 +779,15 @@
   .about-highlight-grid,
   .chatbot-layout {
     grid-template-columns: 1fr;
+  }
+
+  .chatbot-limit-card {
+    margin: 1rem auto 1.75rem;
+  }
+
+  .chatbot-limit-card div {
+    width: 100%;
+    justify-content: center;
   }
 
   .hero-cta-primary,
