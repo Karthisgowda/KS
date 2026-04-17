@@ -1,4 +1,4 @@
-import { Code, Database, Globe } from "lucide-react";
+import { BarChart3, Code, Database, Globe } from "lucide-react";
 
 export default function Skills() {
   const skillCategories = [
@@ -32,6 +32,18 @@ export default function Skills() {
         { name: "VS Code", level: 100 },
       ],
     },
+    {
+      icon: <BarChart3 className="text-cyan-400 text-2xl" />,
+      title: "Data Analyst",
+      skills: [
+        { name: "SQL", level: 88 },
+        { name: "Excel", level: 86 },
+        { name: "Power BI", level: 82 },
+        { name: "Data Cleaning", level: 85 },
+        { name: "Visualization", level: 84 },
+        { name: "Python Analysis", level: 87 },
+      ],
+    },
   ];
 
   return (
@@ -43,11 +55,11 @@ export default function Skills() {
           </div>
           <div className="section-heading">
             <h2 className="section-title" data-testid="skills-title">Technical Skills</h2>
-            <p className="section-description">A balanced stack across programming, web interfaces, and databases.</p>
+            <p className="section-description">A balanced stack across programming, web interfaces, databases, and data analytics.</p>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {skillCategories.map((category, categoryIndex) => (
             <div key={categoryIndex} className="skill-card p-6 rounded-xl animate-fadeInUp" style={{ animationDelay: `${categoryIndex * 0.1}s` }} data-testid={`skill-category-${categoryIndex}`}>
               <div className="flex items-center mb-4">

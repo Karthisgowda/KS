@@ -1,19 +1,21 @@
 import { ArrowUpRight, Github, Linkedin, Mail, Phone, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 
+const roles = ["Full Stack Developer", "Front End Developer", "Back End Developer", "Data Analyst"];
+
 export default function Hero() {
-  const [currentRole, setCurrentRole] = useState("Full Stack");
+  const [currentRole, setCurrentRole] = useState(roles[0]);
   const githubProfile = "https://github.com/Karthisgowda";
 
   useEffect(() => {
-    const timeouts = [
-      setTimeout(() => setCurrentRole("Front End"), 2000),
-      setTimeout(() => setCurrentRole("Back End"), 3000),
-      setTimeout(() => setCurrentRole("Full Stack"), 4000),
-    ];
+    let roleIndex = 0;
+    const interval = window.setInterval(() => {
+      roleIndex = (roleIndex + 1) % roles.length;
+      setCurrentRole(roles[roleIndex]);
+    }, 2000);
 
     return () => {
-      timeouts.forEach((timeout) => clearTimeout(timeout));
+      window.clearInterval(interval);
     };
   }, []);
 
@@ -37,7 +39,7 @@ export default function Hero() {
             <span className="text-gradient-full">Karthik S Gowda</span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 mb-8 animate-fadeInUp" style={{ animationDelay: "0.2s" }} data-testid="hero-subtitle">
-            <span className="role-animation">{currentRole}</span> Developer
+            <span className="role-animation">{currentRole}</span>
           </p>
 
           <div className="hero-intro-card animate-fadeInUp" style={{ animationDelay: "0.35s" }}>
@@ -47,7 +49,8 @@ export default function Hero() {
             </div>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto" data-testid="hero-description">
               BCA student, builder, and fast learner focused on full-stack web experiences, practical backend systems,
-              and clean interfaces that feel intentional. I enjoy turning real problems into useful digital products.
+              clean interfaces, and data-driven insights. I enjoy turning real problems into useful digital products
+              and clear analytical stories.
             </p>
           </div>
 
@@ -81,8 +84,8 @@ export default function Hero() {
               <span>Full-Stack Internship</span>
             </div>
             <div className="hero-stat-card">
-              <strong>3+</strong>
-              <span>Core Development Tracks</span>
+              <strong>4+</strong>
+              <span>Development + Data Tracks</span>
             </div>
           </div>
 

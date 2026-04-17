@@ -19,9 +19,9 @@ export default function About() {
             <div className="about-studio-copy">
               <h3 className="text-2xl font-semibold mb-6 text-blue-400" data-testid="about-subtitle">Professional Summary</h3>
               <p className="text-gray-300 mb-6 leading-relaxed text-lg" data-testid="about-description-1">
-                I&apos;m a passionate BCA student with hands-on experience in full-stack web and Android development.
-                My expertise spans across JavaScript, Python, and backend integration, with a strong focus on
-                creating user-centric design solutions.
+                I&apos;m a passionate BCA student with hands-on experience in full-stack web, Android development,
+                and data analysis. My expertise spans JavaScript, Python, backend integration, SQL, dashboards,
+                and visual reporting, with a strong focus on useful, user-centric solutions.
               </p>
               <p className="text-gray-300 mb-8 leading-relaxed text-lg" data-testid="about-description-2">
                 As a quick learner and collaborative team player, I&apos;m dedicated to building efficient and
@@ -33,7 +33,7 @@ export default function About() {
             <div className="about-highlight-grid">
               <div className="about-highlight-card">
                 <div className="about-highlight-label">Focus</div>
-                <div className="about-highlight-value">Full-Stack Products</div>
+                <div className="about-highlight-value">Full-Stack + Data Products</div>
               </div>
               <div className="about-highlight-card">
                 <div className="about-highlight-label">Strength</div>

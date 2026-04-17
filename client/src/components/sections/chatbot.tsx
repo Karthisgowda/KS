@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Bot, Loader2, MessageSquare, SendHorizonal, Sparkles } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Bot, Gauge, Loader2, MessageSquare, SendHorizonal, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -10,25 +10,35 @@ type ChatMessage = {
 
 const starterPrompts = [
   "Tell me about Karthik's background",
-  "What technologies does Karthik work with?",
-  "Summarize Karthik's internship experience",
-  "Why should someone hire Karthik?",
+  "What data analyst skills does Karthik have?",
+  "Why should someone hire Karthik professionally?",
 ];
+
+const responseLimit = 3;
+const responseCountKey = "karthik-ai-response-count";
 
 export default function Chatbot() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
       content:
-        "Hi, I'm Karthik's AI portfolio assistant. Ask me about his skills, internship, education, achievements, or how to contact him.",
+        "Hi, I'm Karthik's professional AI portfolio assistant. Ask me about his developer profile, data analyst skills, internship, education, achievements, or contact details.",
     },
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [responseCount, setResponseCount] = useState(0);
+
+  useEffect(() => {
+    const savedCount = Number(window.localStorage.getItem(responseCountKey) || "0");
+    setResponseCount(Number.isFinite(savedCount) ? Math.min(savedCount, responseLimit) : 0);
+  }, []);
+
+  const hasReachedLimit = responseCount >= responseLimit;
 
   const sendMessage = async (rawMessage?: string) => {
     const message = (rawMessage ?? input).trim();
-    if (!message || isLoading) return;
+    if (!message || isLoading || hasReachedLimit) return;
 
     setMessages((prev) => [...prev, { role: "user", content: message }]);
     setInput("");
@@ -49,6 +59,9 @@ export default function Chatbot() {
       }
 
       setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
+      const nextCount = Math.min(responseCount + 1, responseLimit);
+      window.localStorage.setItem(responseCountKey, String(nextCount));
+      setResponseCount(nextCount);
     } catch (error) {
       setMessages((prev) => [
         ...prev,
@@ -79,6 +92,17 @@ export default function Chatbot() {
               <p className="section-description" data-testid="chatbot-description">
                 This assistant explains Karthik&apos;s experience, skills, achievements, and goals using Groq-powered responses.
               </p>
+            </div>
+          </div>
+
+          <div className="chatbot-limit-card">
+            <div>
+              <ShieldCheck size={18} />
+              <span>Professional questions only</span>
+            </div>
+            <div>
+              <Gauge size={18} />
+              <span>{Math.max(responseLimit - responseCount, 0)} of {responseLimit} replies left on this device</span>
             </div>
           </div>
 
@@ -122,13 +146,14 @@ export default function Chatbot() {
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ask about skills, internship, education, or achievements..."
+                  placeholder={hasReachedLimit ? "Response limit reached for this device" : "Ask a professional question about development, data analysis, internship, or achievements..."}
                   className="chatbot-input"
                   data-testid="chatbot-input"
+                  disabled={hasReachedLimit}
                 />
                 <Button
                   type="submit"
-                  disabled={isLoading}
+                  disabled={isLoading || hasReachedLimit}
                   className="chatbot-send"
                   data-testid="chatbot-send"
                 >
@@ -142,7 +167,7 @@ export default function Chatbot() {
                 <MessageSquare size={18} />
               </div>
               <h3>Quick Prompts</h3>
-              <p>Use one of these to start the conversation.</p>
+              <p>Use one of these professional prompts. Each assistant answer counts toward the 3-response device limit.</p>
               <div className="prompt-list">
                 {starterPrompts.map((prompt) => (
                   <button
@@ -150,6 +175,7 @@ export default function Chatbot() {
                     type="button"
                     className="prompt-chip"
                     onClick={() => sendMessage(prompt)}
+                    disabled={hasReachedLimit}
                     data-testid={`starter-${prompt.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
                   >
                     {prompt}

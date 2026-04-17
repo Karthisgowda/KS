@@ -33,7 +33,7 @@ export default function Navigation() {
             <span className="brand-mark">KSG</span>
             <div className="hidden md:block">
               <div className="brand-name">Karthik S Gowda</div>
-              <div className="brand-role">Full-Stack Developer</div>
+              <div className="brand-role">Developer + Data Analyst</div>
             </div>
           </div>
 
