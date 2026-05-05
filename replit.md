@@ -35,6 +35,14 @@ The backend uses **Express.js with TypeScript** in an ESM environment:
 
 The server implements a clean separation between routes, storage, and utility functions, making it easy to extend and maintain.
 
+### Groq Chat Configuration
+The portfolio assistant uses Groq through the server-side `/api/chat` endpoint. Configure these environment variables before running or deploying chat:
+
+- `GROQ_API_KEY`: required Groq API key, kept server-side only
+- `GROQ_MODEL`: optional model override, defaults to `llama-3.3-70b-versatile`
+
+Copy `.env.example` to a local `.env` file for development, or add the same variables in the deployment provider.
+
 ### Database Schema
 The application defines a PostgreSQL schema using **Drizzle ORM**:
 
