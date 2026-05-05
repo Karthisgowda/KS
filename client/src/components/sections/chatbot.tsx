@@ -8,6 +8,11 @@ type ChatMessage = {
   content: string;
 };
 
+type ChatApiResponse = {
+  reply?: string;
+  message?: string;
+};
+
 const starterPrompts = [
   "Tell me about Karthik's background",
   "What data analyst skills does Karthik have?",
@@ -16,6 +21,18 @@ const starterPrompts = [
 
 const responseLimit = 3;
 const responseCountKey = "karthik-ai-response-count";
+
+async function readChatResponse(response: Response): Promise<ChatApiResponse> {
+  const contentType = response.headers.get("content-type") || "";
+
+  if (contentType.includes("application/json")) {
+    return response.json();
+  }
+
+  return {
+    message: response.ok ? undefined : "Chat service returned an invalid response.",
+  };
+}
 
 export default function Chatbot() {
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -53,12 +70,17 @@ export default function Chatbot() {
         body: JSON.stringify({ message }),
       });
 
-      const data = await response.json();
+      const data = await readChatResponse(response);
       if (!response.ok) {
         throw new Error(data?.message || "Unable to fetch chat response.");
       }
 
-      setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
+      if (!data.reply) {
+        throw new Error("Chat service returned an empty response.");
+      }
+
+      const reply = data.reply;
+      setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
       const nextCount = Math.min(responseCount + 1, responseLimit);
       window.localStorage.setItem(responseCountKey, String(nextCount));
       setResponseCount(nextCount);
