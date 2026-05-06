@@ -1,3 +1,7 @@
+import { loadServerEnv } from "./env";
+
+loadServerEnv();
+
 const systemPrompt = [
   "You are Karthik S Gowda's personal portfolio assistant.",
   "Answer only professional questions related to Karthik's background, developer skills, data analyst skills, education, work, achievements, contact details, and professional goals.",
