@@ -30,6 +30,16 @@ type GroqChatResponse = {
   }>;
 };
 
+type GeminiResponse = {
+  candidates?: Array<{
+    content?: {
+      parts?: Array<{
+        text?: unknown;
+      }>;
+    };
+  }>;
+};
+
 export class GroqChatError extends Error {
   status: number;
   details?: string;
@@ -42,34 +52,57 @@ export class GroqChatError extends Error {
   }
 }
 
-export function readChatMessage(body: unknown): string {
-  if (typeof body === "string") {
-    try {
-      const parsed = JSON.parse(body) as { message?: unknown };
-      return typeof parsed.message === "string" ? parsed.message.trim() : "";
-    } catch {
-      return "";
-    }
+async function createGeminiReply(message: string): Promise<string> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  const model = process.env.GEMINI_MODEL || "gemini-2.5-flash-lite";
+
+  if (!apiKey) {
+    throw new GroqChatError(500, "Gemini API key is missing. Set GEMINI_API_KEY on the server.");
   }
 
-  if (body && typeof body === "object" && "message" in body) {
-    const message = (body as { message?: unknown }).message;
-    return typeof message === "string" ? message.trim() : "";
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        contents: [
+          {
+            role: "user",
+            parts: [{ text: `${systemPrompt}\n\nUser question: ${message}` }],
+          },
+        ],
+        generationConfig: {
+          temperature: 0.6,
+          maxOutputTokens: 700,
+        },
+      }),
+    },
+  );
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new GroqChatError(502, "Gemini request failed.", errorText);
   }
 
-  return "";
+  const data = (await response.json()) as GeminiResponse;
+  const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+  if (typeof reply !== "string" || !reply.trim()) {
+    throw new GroqChatError(502, "Gemini returned an empty response.");
+  }
+
+  return reply.trim();
 }
 
-export async function createPortfolioReply(message: string): Promise<string> {
+async function createGroqReply(message: string): Promise<string> {
   const apiKey = process.env.GROQ_API_KEY;
   const model = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
 
-  if (!message) {
-    throw new GroqChatError(400, "Message is required.");
-  }
-
   if (!apiKey) {
-    throw new GroqChatError(500, "Groq API key is missing. Set GROQ_API_KEY on the server.");
+    throw new GroqChatError(500, "AI API key is missing. Set GEMINI_API_KEY or GROQ_API_KEY on the server.");
   }
 
   const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -102,4 +135,34 @@ export async function createPortfolioReply(message: string): Promise<string> {
   }
 
   return reply.trim();
+}
+
+export function readChatMessage(body: unknown): string {
+  if (typeof body === "string") {
+    try {
+      const parsed = JSON.parse(body) as { message?: unknown };
+      return typeof parsed.message === "string" ? parsed.message.trim() : "";
+    } catch {
+      return "";
+    }
+  }
+
+  if (body && typeof body === "object" && "message" in body) {
+    const message = (body as { message?: unknown }).message;
+    return typeof message === "string" ? message.trim() : "";
+  }
+
+  return "";
+}
+
+export async function createPortfolioReply(message: string): Promise<string> {
+  if (!message) {
+    throw new GroqChatError(400, "Message is required.");
+  }
+
+  if (process.env.GEMINI_API_KEY) {
+    return createGeminiReply(message);
+  }
+
+  return createGroqReply(message);
 }

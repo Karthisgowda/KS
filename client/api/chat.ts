@@ -20,6 +20,8 @@ const systemPrompt = [
 
 declare const process: {
   env: {
+    GEMINI_API_KEY?: string;
+    GEMINI_MODEL?: string;
     GROQ_API_KEY?: string;
     GROQ_MODEL?: string;
   };
@@ -34,6 +36,16 @@ type ChatResponse = {
   status: (code: number) => {
     json: (body: unknown) => unknown;
   };
+};
+
+type GeminiResponse = {
+  candidates?: Array<{
+    content?: {
+      parts?: Array<{
+        text?: unknown;
+      }>;
+    };
+  }>;
 };
 
 function readChatMessage(body: unknown): string {
@@ -54,34 +66,79 @@ function readChatMessage(body: unknown): string {
   return "";
 }
 
+async function createGeminiReply(apiKey: string, model: string, message: string): Promise<string> {
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        contents: [
+          {
+            role: "user",
+            parts: [{ text: `${systemPrompt}\n\nUser question: ${message}` }],
+          },
+        ],
+        generationConfig: {
+          temperature: 0.6,
+          maxOutputTokens: 700,
+        },
+      }),
+    },
+  );
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Gemini request failed: ${errorText}`);
+  }
+
+  const data = (await response.json()) as GeminiResponse;
+  const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+  if (typeof reply !== "string" || !reply.trim()) {
+    throw new Error("Gemini returned an empty response.");
+  }
+
+  return reply.trim();
+}
+
 export default async function handler(req: ChatRequest, res: ChatResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method not allowed." });
   }
 
-  const apiKey = process.env.GROQ_API_KEY;
-  const model = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
+  const geminiApiKey = process.env.GEMINI_API_KEY;
+  const geminiModel = process.env.GEMINI_MODEL || "gemini-2.5-flash-lite";
+  const groqApiKey = process.env.GROQ_API_KEY;
+  const groqModel = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
   const message = readChatMessage(req.body);
 
   if (!message) {
     return res.status(400).json({ message: "Message is required." });
   }
 
-  if (!apiKey) {
+  if (!geminiApiKey && !groqApiKey) {
     return res.status(500).json({
-      message: "Groq API key is missing. Set GROQ_API_KEY on the server.",
+      message: "AI API key is missing. Set GEMINI_API_KEY or GROQ_API_KEY on the server.",
     });
   }
 
   try {
+    if (geminiApiKey) {
+      const reply = await createGeminiReply(geminiApiKey, geminiModel, message);
+      return res.status(200).json({ reply });
+    }
+
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Bearer ${groqApiKey}`,
       },
       body: JSON.stringify({
-        model,
+        model: groqModel,
         temperature: 0.6,
         max_tokens: 700,
         messages: [
