@@ -170,9 +170,9 @@ export async function createPortfolioReply(message: string): Promise<string> {
     throw new GroqChatError(400, "Message is required.");
   }
 
-  if (process.env.GEMINI_API_KEY) {
-    return createGeminiReply(message);
+  if (process.env.GROQ_API_KEY) {
+    return createGroqReply(message);
   }
 
-  return createGroqReply(message);
+  return createGeminiReply(message);
 }
