@@ -82,6 +82,7 @@ async function createGeminiReply(apiKey: string, model: string, message: string)
       headers: {
         "Content-Type": "application/json",
       },
+      signal: getChatSignal(),
       body: JSON.stringify({
         contents: [
           {
