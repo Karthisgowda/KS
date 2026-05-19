@@ -160,6 +160,11 @@ export default async function handler(req: ChatRequest, res: ChatResponse) {
 
     if (!response.ok) {
       const errorText = await response.text();
+      if (geminiApiKey) {
+        const reply = await createGeminiReply(geminiApiKey, geminiModel, message);
+        return res.status(200).json({ reply });
+      }
+
       return res.status(502).json({
         message: "Groq request failed.",
         details: errorText,
