@@ -120,6 +120,7 @@ async function createGroqReply(message: string): Promise<string> {
       "Content-Type": "application/json",
       Authorization: `Bearer ${apiKey}`,
     },
+    signal: getChatSignal(),
     body: JSON.stringify({
       model,
       temperature: 0.6,
