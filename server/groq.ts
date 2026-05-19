@@ -58,7 +58,7 @@ export class GroqChatError extends Error {
 
 async function createGeminiReply(message: string): Promise<string> {
   const apiKey = process.env.GEMINI_API_KEY;
-  const model = process.env.GEMINI_MODEL || "gemini-2.5-flash-lite";
+  const model = process.env.GEMINI_MODEL || DEFAULT_GEMINI_MODEL;
 
   if (!apiKey) {
     throw new GroqChatError(500, "Gemini API key is missing. Set GEMINI_API_KEY on the server.");
@@ -103,7 +103,7 @@ async function createGeminiReply(message: string): Promise<string> {
 
 async function createGroqReply(message: string): Promise<string> {
   const apiKey = process.env.GROQ_API_KEY;
-  const model = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
+  const model = process.env.GROQ_MODEL || DEFAULT_GROQ_MODEL;
 
   if (!apiKey) {
     throw new GroqChatError(500, "AI API key is missing. Set GEMINI_API_KEY or GROQ_API_KEY on the server.");
