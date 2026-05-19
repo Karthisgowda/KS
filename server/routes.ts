@@ -11,7 +11,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       const status = error instanceof GroqChatError ? error.status : 500;
       const message = error instanceof Error ? error.message : "Unexpected server error.";
-      const details = error instanceof GroqChatError ? error.details : undefined;
+      const details = process.env.NODE_ENV === "production" ? undefined : error instanceof GroqChatError ? error.details : undefined;
       return res.status(status).json({ message, details });
     }
   });
