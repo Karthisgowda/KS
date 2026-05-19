@@ -146,6 +146,7 @@ export default async function handler(req: ChatRequest, res: ChatResponse) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${groqApiKey}`,
       },
+      signal: getChatSignal(),
       body: JSON.stringify({
         model: groqModel,
         temperature: 0.6,
