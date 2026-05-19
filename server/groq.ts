@@ -171,7 +171,13 @@ export async function createPortfolioReply(message: string): Promise<string> {
   }
 
   if (process.env.GROQ_API_KEY) {
-    return createGroqReply(message);
+    try {
+      return await createGroqReply(message);
+    } catch (error) {
+      if (!process.env.GEMINI_API_KEY) {
+        throw error;
+      }
+    }
   }
 
   return createGeminiReply(message);
