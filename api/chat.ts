@@ -18,6 +18,10 @@ const systemPrompt = [
   "If asked something casual, inappropriate, or unrelated to Karthik's professional profile, politely say you can only answer professional portfolio questions.",
 ].join("\n");
 
+const DEFAULT_GROQ_MODEL = "llama-3.3-70b-versatile";
+const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash-lite";
+const CHAT_REQUEST_TIMEOUT_MS = 15000;
+
 declare const process: {
   env: {
     GEMINI_API_KEY?: string;
