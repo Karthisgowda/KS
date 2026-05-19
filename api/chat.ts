@@ -135,7 +135,7 @@ export default async function handler(req: ChatRequest, res: ChatResponse) {
   }
 
   try {
-    if (geminiApiKey) {
+    if (!groqApiKey && geminiApiKey) {
       const reply = await createGeminiReply(geminiApiKey, geminiModel, message);
       return res.status(200).json({ reply });
     }
