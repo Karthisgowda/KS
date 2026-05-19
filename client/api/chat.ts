@@ -18,12 +18,17 @@ const systemPrompt = [
   "If asked something casual, inappropriate, or unrelated to Karthik's professional profile, politely say you can only answer professional portfolio questions.",
 ].join("\n");
 
+const DEFAULT_GROQ_MODEL = "llama-3.3-70b-versatile";
+const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash-lite";
+const CHAT_REQUEST_TIMEOUT_MS = 15000;
+
 declare const process: {
   env: {
     GEMINI_API_KEY?: string;
     GEMINI_MODEL?: string;
     GROQ_API_KEY?: string;
     GROQ_MODEL?: string;
+    NODE_ENV?: string;
   };
 };
 
@@ -47,6 +52,10 @@ type GeminiResponse = {
     };
   }>;
 };
+
+function getChatSignal() {
+  return AbortSignal.timeout(CHAT_REQUEST_TIMEOUT_MS);
+}
 
 function readChatMessage(body: unknown): string {
   if (typeof body === "string") {
@@ -74,6 +83,7 @@ async function createGeminiReply(apiKey: string, model: string, message: string)
       headers: {
         "Content-Type": "application/json",
       },
+      signal: getChatSignal(),
       body: JSON.stringify({
         contents: [
           {
@@ -110,9 +120,9 @@ export default async function handler(req: ChatRequest, res: ChatResponse) {
   }
 
   const geminiApiKey = process.env.GEMINI_API_KEY;
-  const geminiModel = process.env.GEMINI_MODEL || "gemini-2.5-flash-lite";
+  const geminiModel = process.env.GEMINI_MODEL || DEFAULT_GEMINI_MODEL;
   const groqApiKey = process.env.GROQ_API_KEY;
-  const groqModel = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
+  const groqModel = process.env.GROQ_MODEL || DEFAULT_GROQ_MODEL;
   const message = readChatMessage(req.body);
 
   if (!message) {
@@ -126,7 +136,7 @@ export default async function handler(req: ChatRequest, res: ChatResponse) {
   }
 
   try {
-    if (geminiApiKey) {
+    if (!groqApiKey && geminiApiKey) {
       const reply = await createGeminiReply(geminiApiKey, geminiModel, message);
       return res.status(200).json({ reply });
     }
@@ -137,6 +147,7 @@ export default async function handler(req: ChatRequest, res: ChatResponse) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${groqApiKey}`,
       },
+      signal: getChatSignal(),
       body: JSON.stringify({
         model: groqModel,
         temperature: 0.6,
@@ -150,9 +161,14 @@ export default async function handler(req: ChatRequest, res: ChatResponse) {
 
     if (!response.ok) {
       const errorText = await response.text();
+      if (geminiApiKey) {
+        const reply = await createGeminiReply(geminiApiKey, geminiModel, message);
+        return res.status(200).json({ reply });
+      }
+
       return res.status(502).json({
         message: "Groq request failed.",
-        details: errorText,
+        details: process.env.NODE_ENV === "production" ? undefined : errorText,
       });
     }
 

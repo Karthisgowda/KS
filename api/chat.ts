@@ -28,6 +28,7 @@ declare const process: {
     GEMINI_MODEL?: string;
     GROQ_API_KEY?: string;
     GROQ_MODEL?: string;
+    NODE_ENV?: string;
   };
 };
 
@@ -167,7 +168,7 @@ export default async function handler(req: ChatRequest, res: ChatResponse) {
 
       return res.status(502).json({
         message: "Groq request failed.",
-        details: errorText,
+        details: process.env.NODE_ENV === "production" ? undefined : errorText,
       });
     }
 
