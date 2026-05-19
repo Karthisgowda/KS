@@ -52,6 +52,10 @@ type GeminiResponse = {
   }>;
 };
 
+function getChatSignal() {
+  return AbortSignal.timeout(CHAT_REQUEST_TIMEOUT_MS);
+}
+
 function readChatMessage(body: unknown): string {
   if (typeof body === "string") {
     try {
