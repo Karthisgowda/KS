@@ -56,6 +56,10 @@ export class GroqChatError extends Error {
   }
 }
 
+function getChatSignal() {
+  return AbortSignal.timeout(CHAT_REQUEST_TIMEOUT_MS);
+}
+
 async function createGeminiReply(message: string): Promise<string> {
   const apiKey = process.env.GEMINI_API_KEY;
   const model = process.env.GEMINI_MODEL || DEFAULT_GEMINI_MODEL;
