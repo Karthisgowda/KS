@@ -11,3 +11,15 @@ The assistant reads AI provider keys only from server environment variables.
 3. Keep provider keys out of source control and public client code.
 
 For production, configure the same variables in the deployment provider.
+
+## Rotating Groq Keys
+
+When a Groq key changes, update the deployment environment instead of editing source files.
+
+```bash
+vercel env rm GROQ_API_KEY production --yes
+vercel env add GROQ_API_KEY production
+vercel --prod --yes
+```
+
+After deployment, test `/api/chat` with a professional portfolio question and confirm the response is generated successfully.
